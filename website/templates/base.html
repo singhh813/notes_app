@@ -19,29 +19,30 @@
     <div class="nav">
       <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="logo">
       <div class="navlinks">
-          <a href="#" class="navLink">Products</a>
-          <a href="#" class="navLink">Pricing</a>
-          <a href="#" class="navLink">Resources</a>
-          <a href="#" class="navLink">About Us</a>
+          <a href="/" class="navLink">Notes</a>
+          {% if current_user.is_authenticated %}
+            <a href="/logout" class="navLink">Logout</a>
+          {% else %}
+          <a href="/login" class="navLink">Login</a>
+
+          {% endif %}
+          
+          <a href="/aboutus" class="navLink">About Us</a>
       </div>
     </div>
-
+    
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
     'error' %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+    <div class="alert-danger">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
       {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
     {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
+    <div class="alert-success">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
       {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
     {% endif %} {% endfor %} {% endif %} {% endwith %}
     <div class="background"></div>
@@ -61,6 +62,8 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="{{ url_for('static', filename='css/base.css') }}"></script>
+   
 
 {% block javascript %}
     <script type="text/javascript">
